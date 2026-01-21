@@ -61,12 +61,15 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
       
+      - name: Hide web directory before install
+        run: |
+          # Move web directory BEFORE installing dependencies to prevent pnpm from seeing it
+          if [ -d "web" ]; then mv web web.backup; fi
+      
       - name: Install dependencies (backend only)
         run: |
-          # Install only root dependencies, not web dependencies
+          # Install only root dependencies - web directory is hidden so pnpm won't install its deps
           pnpm install --frozen-lockfile --ignore-scripts
-          # Remove web directory temporarily to prevent TypeScript from seeing it
-          mv web web.backup || true
       
       - name: Build backend
         run: pnpm build
@@ -74,8 +77,12 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=8192
       
       - name: Restore web directory
-        run: mv web.backup web || true
+        run: if [ -d "web.backup" ]; then mv web.backup web; fi
         if: always()
+      
+      - name: Install frontend dependencies
+        working-directory: web
+        run: pnpm install --frozen-lockfile
       
       - name: Build frontend
         working-directory: web
