@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+*.log
+
+# Production
+dist/
+build/
+*.tsbuildinfo
+web/dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.env.fixed
+test-*.sh
+test-*.js
+RESTART_*.sh
+web/start-chrome-no-csp.sh
+web/CSP_TROUBLESHOOTING.md
+
+# Lock files - commit these for reproducible builds
+# pnpm-lock.yaml (COMMIT THIS - needed for CI)
+# web/pnpm-lock.yaml (COMMIT THIS - needed for CI)

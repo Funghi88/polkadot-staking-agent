@@ -1,0 +1,53 @@
+{
+  "name": "polkadot-staking-agent",
+  "version": "1.0.0",
+  "description": "AI-powered Polkadot Nomination Staking Agent using polkadot-agent-kit",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "dev:api": "tsx watch src/api/server.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:api": "node dist/api/server.js",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test": "vitest run",
+    "type-check": "tsc -p tsconfig.typecheck.json"
+  },
+  "keywords": [
+    "polkadot",
+    "staking",
+    "ai",
+    "agent",
+    "blockchain"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@galacticcouncil/api-augment": "^0.9.0",
+    "@polkadot-agent-kit/llm": "^2.1.5",
+    "@polkadot-agent-kit/sdk": "^2.1.5",
+    "@polkadot/keyring": "^14.0.1",
+    "@polkadot/util-crypto": "^12.0.0",
+    "dotenv": "^16.3.1",
+    "fastify": "^4.29.1",
+    "socks-proxy-agent": "^8.0.5",
+    "ws": "^8.19.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@polkadot/api": "^12.0.0",
+    "@polkadot/util": "^12.0.0",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "pino-pretty": "^11.3.0",
+    "prettier": "^3.1.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.2",
+    "vitest": "^1.0.4"
+  }
+}
