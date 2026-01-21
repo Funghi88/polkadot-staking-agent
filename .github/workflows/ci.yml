@@ -61,13 +61,23 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
       
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install dependencies (backend only)
+        run: |
+          # Install only root dependencies, not web dependencies
+          pnpm install --frozen-lockfile --ignore-scripts
+          # Remove web directory temporarily to prevent TypeScript from seeing it
+          mv web web.backup || true
       
       - name: Build backend
         run: pnpm build
         env:
           NODE_OPTIONS: --max-old-space-size=8192
+      
+      - name: Restore web directory
+        run: mv web.backup web || true
+        if: always()
+          # Prevent TypeScript from resolving types from web directory
+          TS_NODE_PROJECT: tsconfig.json
       
       - name: Build frontend
         working-directory: web
