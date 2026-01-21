@@ -76,8 +76,6 @@ jobs:
       - name: Restore web directory
         run: mv web.backup web || true
         if: always()
-          # Prevent TypeScript from resolving types from web directory
-          TS_NODE_PROJECT: tsconfig.json
       
       - name: Build frontend
         working-directory: web
