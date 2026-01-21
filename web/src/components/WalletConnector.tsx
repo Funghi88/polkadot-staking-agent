@@ -114,7 +114,7 @@ export default function WalletConnector({ onConnect, onDisconnect }: WalletConne
   // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
   // Prevent blank page redirects when connecting wallets
   useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+    const handleBeforeUnload = () => {
       // Only prevent if we're in the middle of a connection attempt
       console.log('[WalletConnector] Page unload detected - this might be a wallet redirect');
     };
@@ -352,17 +352,7 @@ export default function WalletConnector({ onConnect, onDisconnect }: WalletConne
       <div 
         style={{ marginTop: '1rem', position: 'relative' }}
       >
-        <ConnectButton 
-          onConnect={(account) => {
-            console.log('[WalletConnector] ✅ ConnectButton onConnect callback:', account);
-            setError(null);
-          }}
-          onError={(error) => {
-            console.error('[WalletConnector] ❌ ConnectButton error:', error);
-            const errorMsg = error?.message || error?.toString() || 'Failed to connect wallet';
-            setError(`Connection failed: ${errorMsg}. Please try the manual connect button below.`);
-          }}
-        />
+        <ConnectButton />
       </div>
       {/* Fallback: Manual connect using LunoKit hooks directly */}
       <ManualConnectButton />

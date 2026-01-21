@@ -3,24 +3,22 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import StakingDashboard from '../components/StakingDashboard';
 import { WalletProvider } from '../hooks/useWallet';
-import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
 
-// Mock the Polkadot extension
-vi.mock('@polkadot/extension-dapp', () => ({
-  web3Enable: vi.fn(),
-  web3Accounts: vi.fn(),
+// Mock LunoKit hooks
+vi.mock('@luno-kit/react', () => ({
+  useAccount: vi.fn(() => ({ account: undefined, address: undefined, status: 'disconnected' })),
+  useAccounts: vi.fn(() => ({ accounts: [] })),
+  useChain: vi.fn(() => ({ chain: undefined })),
+  useConnect: vi.fn(() => ({ connectAsync: vi.fn() })),
+  useDisconnect: vi.fn(() => ({ disconnectAsync: vi.fn() })),
+  useSwitchChain: vi.fn(() => ({ switchChainAsync: vi.fn() })),
 }));
 
-const mockAccount = {
-  address: '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY',
-  meta: { name: 'Test Account' },
-};
+// Mock account removed - tests now use LunoKit mocks
 
 describe('StakingDashboard', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(web3Enable).mockResolvedValue([{ name: 'polkadot-js', version: '1.0.0' } as any]);
-    vi.mocked(web3Accounts).mockResolvedValue([mockAccount] as any);
   });
 
   it('should render dashboard header with tabs', () => {
